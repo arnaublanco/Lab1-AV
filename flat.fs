@@ -10,9 +10,10 @@ varying vec3 v_wNormal;
 // variables that we need in the main for the phong model
 uniform vec3 light_pos;
 uniform vec3 Ka;
-uniform vec3 eye_pos;
-
+uniform vec3 u_camera_position;
+uniform float Kd;
 uniform float alpha;
+uniform float Ks;
 
 void main()
 {
@@ -28,8 +29,8 @@ void main()
 	vec3 second_term = Kd*L_dot_N;
 
 	// 3rd term calculation
-	vec3 R_vector = reflect(L_vector,v_wNormal);
-	vec3 V_vector = normalize(eye_pos - v_wPos);
+	vec3 R_vector = reflect(L_vector,normalize(v_wNormal));
+	vec3 V_vector = normalize(u_camera_position - v_wPos);
 	float R_dot_V = max(0.0,dot(R_vector,V_vector));
 	float RV_power = pow(R_dot_V,alpha);
 	vec3 third_term = Ks*power_term;
