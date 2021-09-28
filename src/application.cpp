@@ -46,11 +46,12 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 
 	{
 		StandardMaterial* mat = new StandardMaterial();
+		mat->texture = Texture::Get("data/blueNoise.png");
 		SceneNode* node = new SceneNode("Visible node");
 		node->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
 		//node->model.scale(5, 5, 5);
 		node->material = mat;
-		mat->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/normal.fs");
+		//mat->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/normal.fs");
 		node_list.push_back(node);
 	}
 	
