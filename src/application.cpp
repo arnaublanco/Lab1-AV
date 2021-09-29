@@ -46,8 +46,10 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 
 	{
 		StandardMaterial* mat = new StandardMaterial();
+		//Light* light = new Light();
 		mat->texture = Texture::Get("data/blueNoise.png");
 		SceneNode* node = new SceneNode("Visible node");
+		//node->light = light;
 		node->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
 		//node->model.scale(5, 5, 5);
 		node->material = mat;
@@ -74,6 +76,7 @@ void Application::render(void)
 	//set flags
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_CULL_FACE);
+
 
 	for (size_t i = 0; i < node_list.size(); i++) {
 		node_list[i]->render(camera);

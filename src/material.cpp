@@ -23,6 +23,16 @@ void StandardMaterial::setUniforms(Camera* camera, Matrix44 model)
 	shader->setUniform("u_time", Application::instance->time);
 	shader->setUniform("u_output", Application::instance->output);
 
+	shader->setVector3("light_pos", Vector3(60, 60, 0));
+	shader->setVector3("ambientLight", Vector3(0.6f, 0.6f, 0.6f));
+	shader->setVector3("diffuseLight", Vector3(0.6f, 0.6f, 0.6f));
+	shader->setVector3("specularLight", Vector3(0.6f, 0.6f, 0.6f));
+
+	shader->setVector3("ambientMaterial", Vector3(1,1,1));
+	shader->setVector3("diffuseMaterial", Vector3(1, 1, 1));
+	shader->setVector3("specularMaterial", Vector3(1, 1, 1));
+	shader->setFloat("alpha", 1);
+
 	shader->setUniform("u_color", color);
 	shader->setUniform("u_exposure", Application::instance->scene_exposure);
 

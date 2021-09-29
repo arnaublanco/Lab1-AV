@@ -8,6 +8,14 @@
 #include "camera.h"
 #include "material.h"
 
+//class Light {
+//public:
+//	Vector3 position;
+//	Vector3 diffuseLight;
+//	Vector3 reflectedLight;
+
+//	Light();
+//};
 class Light;
 
 class SceneNode {
@@ -24,6 +32,7 @@ public:
 
 	Mesh* mesh = NULL;
 	Matrix44 model;
+	//Light* light;
 
 	virtual void render(Camera* camera);
 	virtual void renderWireframe(Camera* camera);

@@ -6,6 +6,12 @@
 unsigned int SceneNode::lastNameId = 0;
 unsigned int mesh_selected = 0;
 
+//Light::Light() {
+//	position.set(50,25,0);
+//	diffuseLight.set(0.6f,0.6f,0.6f);
+//	reflectedLight.set(0.6f, 0.6f, 0.6f);
+//}
+
 SceneNode::SceneNode()
 {
 	this->name = std::string("Node" + std::to_string(lastNameId++));
