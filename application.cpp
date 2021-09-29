@@ -44,11 +44,12 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 	camera->lookAt(Vector3(5.f, 5.f, 5.f), Vector3(0.f, 0.0f, 0.f), Vector3(0.f, 1.f, 0.f));
 	camera->setPerspective(45.f,window_width/(float)window_height,0.1f,10000.f); //set the projection, we want to be perspective
 
-	// To separate the code, we use the brackets {}
 	{
 		StandardMaterial* mat = new StandardMaterial();
+		//Light* light = new Light();
 		mat->texture = Texture::Get("data/blueNoise.png");
 		SceneNode* node = new SceneNode("Visible node");
+		//node->light = light;
 		node->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
 		//node->model.scale(5, 5, 5);
 		node->material = mat;
@@ -75,6 +76,7 @@ void Application::render(void)
 	//set flags
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_CULL_FACE);
+
 
 	for (size_t i = 0; i < node_list.size(); i++) {
 		node_list[i]->render(camera);
