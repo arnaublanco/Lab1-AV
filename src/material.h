@@ -22,6 +22,11 @@ public:
 class StandardMaterial : public Material {
 public:
 
+	Vector3 ambientMaterial;
+	Vector3 diffuseMaterial;
+	Vector3 specularMaterial;
+	float alpha;
+
 	StandardMaterial();
 	~StandardMaterial();
 

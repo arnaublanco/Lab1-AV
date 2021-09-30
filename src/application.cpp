@@ -46,10 +46,16 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 
 	{
 		StandardMaterial* mat = new StandardMaterial();
-		//Light* light = new Light();
+
+		Vector3 posLight = Vector3(60, 60, 60);
+		Vector3 diffuseLight = Vector3(0.6f, 0.6f, 0.6f);
+		Vector3 specularLight = Vector3(0.6f, 0.6f, 0.6f);
+		Vector3 ambientLight = Vector3(0.6f, 0.6f, 0.6f);
+
+		Light* light = new Light(posLight,diffuseLight,specularLight,ambientLight);
 		mat->texture = Texture::Get("data/blueNoise.png");
 		SceneNode* node = new SceneNode("Visible node");
-		//node->light = light;
+		node->light = light;
 		node->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
 		//node->model.scale(5, 5, 5);
 		node->material = mat;

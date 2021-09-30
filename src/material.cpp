@@ -7,6 +7,10 @@ StandardMaterial::StandardMaterial()
 {
 	color = vec4(1.f, 1.f, 1.f, 1.f);
 	shader = Shader::Get("data/shaders/basic.vs", "data/shaders/flat.fs");
+	ambientMaterial = Vector3(1, 1, 1);
+	diffuseMaterial = Vector3(1, 1, 1);
+	specularMaterial = Vector3(1, 1, 1);
+	alpha = 0.1;
 }
 
 StandardMaterial::~StandardMaterial()
@@ -23,15 +27,10 @@ void StandardMaterial::setUniforms(Camera* camera, Matrix44 model)
 	shader->setUniform("u_time", Application::instance->time);
 	shader->setUniform("u_output", Application::instance->output);
 
-	shader->setVector3("light_pos", Vector3(60, 60, 0));
-	shader->setVector3("ambientLight", Vector3(0.6f, 0.6f, 0.6f));
-	shader->setVector3("diffuseLight", Vector3(0.6f, 0.6f, 0.6f));
-	shader->setVector3("specularLight", Vector3(0.6f, 0.6f, 0.6f));
-
-	shader->setVector3("ambientMaterial", Vector3(1,1,1));
-	shader->setVector3("diffuseMaterial", Vector3(1, 1, 1));
-	shader->setVector3("specularMaterial", Vector3(1, 1, 1));
-	shader->setFloat("alpha", 1);
+	shader->setVector3("ambientMaterial", ambientMaterial);
+	shader->setVector3("diffuseMaterial", diffuseMaterial);
+	shader->setVector3("specularMaterial", specularMaterial);
+	shader->setFloat("alpha", alpha);
 
 	shader->setUniform("u_color", color);
 	shader->setUniform("u_exposure", Application::instance->scene_exposure);
