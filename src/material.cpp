@@ -20,6 +20,7 @@ StandardMaterial::~StandardMaterial()
 
 void StandardMaterial::setUniforms(Camera* camera, Matrix44 model)
 {
+
 	//upload node uniforms
 	shader->setUniform("u_viewprojection", camera->viewprojection_matrix);
 	shader->setUniform("u_camera_position", camera->eye);
@@ -31,6 +32,11 @@ void StandardMaterial::setUniforms(Camera* camera, Matrix44 model)
 	shader->setVector3("diffuseMaterial", diffuseMaterial);
 	shader->setVector3("specularMaterial", specularMaterial);
 	shader->setFloat("alpha", alpha);
+
+	shader->setUniform("light_pos", Application::instance->light->position);
+	shader->setUniform("ambientLight", Application::instance->light->ambientLight);
+	shader->setUniform("diffuseLight", Application::instance->light->diffuseLight);
+	shader->setUniform("specularLight", Application::instance->light->specularLight);
 
 	shader->setUniform("u_color", color);
 	shader->setUniform("u_exposure", Application::instance->scene_exposure);

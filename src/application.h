@@ -18,6 +18,16 @@ enum EOutput {
 	NORMALS
 };
 
+class Light {
+public:
+	Vector3 position;
+	Vector3 diffuseLight;
+	Vector3 specularLight;
+	Vector3 ambientLight;
+
+	Light(Vector3 position, Vector3 diffuseLight, Vector3 specularLight, Vector3 ambientLight);
+};
+
 class Application
 {
 public:
@@ -39,6 +49,8 @@ public:
 	bool render_debug;
 	float scene_exposure;
 	int output;
+
+	Light* light;
 
 	//some vars
 	static Camera* camera; //our GLOBAL camera

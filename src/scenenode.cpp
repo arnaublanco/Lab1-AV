@@ -6,20 +6,6 @@
 unsigned int SceneNode::lastNameId = 0;
 unsigned int mesh_selected = 0;
 
-Light::Light(Vector3 position, Vector3 diffuseLight, Vector3 specularLight, Vector3 ambientLight) {
-	this->position.set(position.x, position.y, position.z);
-	this->diffuseLight.set(diffuseLight.x, diffuseLight.y, diffuseLight.z);
-	this->specularLight.set(specularLight.x, specularLight.y, specularLight.z);
-	this->ambientLight.set(ambientLight.x, ambientLight.y, ambientLight.z);
-}
-
-void Light::setUniforms(Shader* shader) {
-	shader->setUniform("light_pos", position);
-	shader->setUniform("ambientLight", ambientLight);
-	shader->setUniform("diffuseLight", diffuseLight);
-	shader->setUniform("specularLight", specularLight);
-}
-
 SceneNode::SceneNode()
 {
 	this->name = std::string("Node" + std::to_string(lastNameId++));
@@ -38,12 +24,8 @@ SceneNode::~SceneNode()
 
 void SceneNode::render(Camera* camera)
 {
-	
 	if (material)
 		material->render(mesh, model, camera);
-		material->shader->enable();
-		light->setUniforms(material->shader);
-		material->shader->disable();
 }
 
 void SceneNode::renderWireframe(Camera* camera)
