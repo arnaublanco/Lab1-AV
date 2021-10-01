@@ -54,19 +54,30 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 	{
 		StandardMaterial* mat = new StandardMaterial();
 
-		Vector3 posLight = Vector3(60, 60, 60);
+		Vector3 posLight = Vector3(60, 60, 100);
 		Vector3 diffuseLight = Vector3(0.6f, 0.6f, 0.6f);
 		Vector3 specularLight = Vector3(0.6f, 0.6f, 0.6f);
 		Vector3 ambientLight = Vector3(0.6f, 0.6f, 0.6f);
 
 		light = new Light(posLight,diffuseLight,specularLight,ambientLight);
 		mat->texture = Texture::Get("data/blueNoise.png");
-		SceneNode* node = new SceneNode("Visible node");
+		SceneNode* node = new SceneNode("Ball");
 		node->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
 		//node->model.scale(5, 5, 5);
 		node->material = mat;
-		//mat->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/normal.fs");
+
 		node_list.push_back(node);
+
+		StandardMaterial* mat2 = new StandardMaterial();
+
+		SceneNode* node2 = new SceneNode("SkyBox");
+		Texture* myCubemap = new Texture();
+		myCubemap->cubemapFromImages("data/environments/city");
+		mat2->texture = myCubemap;
+		node2->material = mat2;
+		node2->mesh = Mesh::Get("data/meshes/box.obj.mbin");
+
+		node_list.push_back(node2);
 	}
 	
 	//hide the cursor
