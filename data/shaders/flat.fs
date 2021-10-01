@@ -38,5 +38,5 @@ void main()
 	float power = pow(R_dot_V,alpha);
 	vec3 third_term = specularMaterial*power*specularLight;
 	
-	gl_FragColor = first_term + second_term + third_term;
+	gl_FragColor = vec4(first_term + second_term + third_term,1.0)*texture(u_texture,v_uv);
 }
