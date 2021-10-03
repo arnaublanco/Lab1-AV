@@ -6,6 +6,24 @@
 unsigned int SceneNode::lastNameId = 0;
 unsigned int mesh_selected = 0;
 
+
+Light::Light(Vector3 position, Vector3 diffuseLight, Vector3 specularLight, Vector3 ambientLight) {
+	this->position = position;
+	this->ambientLight = ambientLight;
+	this->diffuseLight = diffuseLight;
+	this->specularLight = specularLight;
+	
+}
+
+//Review
+void Light::setUniforms(Shader* shader){
+	shader->setUniform("light_pos", position);
+	shader->setUniform("ambientLight", ambientLight);
+	shader->setUniform("diffuseLight", diffuseLight);
+	shader->setUniform("specularLight", specularLight);
+}
+
+
 SceneNode::SceneNode()
 {
 	this->name = std::string("Node" + std::to_string(lastNameId++));

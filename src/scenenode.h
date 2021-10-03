@@ -8,6 +8,9 @@
 #include "camera.h"
 #include "material.h"
 
+//Review
+
+
 class SceneNode {
 public:
 
@@ -26,6 +29,19 @@ public:
 	virtual void render(Camera* camera);
 	virtual void renderWireframe(Camera* camera);
 	virtual void renderInMenu();
+};
+
+class Light : public SceneNode {
+public:
+	Vector3 position;
+	Vector3 diffuseLight;
+	Vector3 specularLight;
+	Vector3 ambientLight;
+
+	Light(Vector3 position, Vector3 diffuseLight, Vector3 specularLight, Vector3 ambientLight);
+
+	void setUniforms(Shader* shader);
+
 };
 
 #endif

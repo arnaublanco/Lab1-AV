@@ -3,14 +3,9 @@
 #include "application.h"
 #include "extra/hdre.h"
 
-StandardMaterial::StandardMaterial()
-{
+StandardMaterial::StandardMaterial(){ 
 	color = vec4(1.f, 1.f, 1.f, 1.f);
-	shader = Shader::Get("data/shaders/basic.vs", "data/shaders/flat.fs");
-	ambientMaterial = Vector3(1, 1, 1);
-	diffuseMaterial = Vector3(1, 1, 1);
-	specularMaterial = Vector3(1, 1, 1);
-	alpha = 0.1;
+	this->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/flat.fs");
 }
 
 StandardMaterial::~StandardMaterial()
@@ -20,7 +15,6 @@ StandardMaterial::~StandardMaterial()
 
 void StandardMaterial::setUniforms(Camera* camera, Matrix44 model)
 {
-
 	//upload node uniforms
 	shader->setUniform("u_viewprojection", camera->viewprojection_matrix);
 	shader->setUniform("u_camera_position", camera->eye);
@@ -28,18 +22,13 @@ void StandardMaterial::setUniforms(Camera* camera, Matrix44 model)
 	shader->setUniform("u_time", Application::instance->time);
 	shader->setUniform("u_output", Application::instance->output);
 
+	shader->setUniform("u_color", color);
+	shader->setUniform("u_exposure", Application::instance->scene_exposure);
+
 	shader->setVector3("ambientMaterial", ambientMaterial);
 	shader->setVector3("diffuseMaterial", diffuseMaterial);
 	shader->setVector3("specularMaterial", specularMaterial);
 	shader->setFloat("alpha", alpha);
-
-	shader->setUniform("light_pos", Application::instance->light->position);
-	shader->setUniform("ambientLight", Application::instance->light->ambientLight);
-	shader->setUniform("diffuseLight", Application::instance->light->diffuseLight);
-	shader->setUniform("specularLight", Application::instance->light->specularLight);
-
-	shader->setUniform("u_color", color);
-	shader->setUniform("u_exposure", Application::instance->scene_exposure);
 
 	if (texture)
 		shader->setUniform("u_texture", texture);
@@ -66,6 +55,18 @@ void StandardMaterial::render(Mesh* mesh, Matrix44 model, Camera* camera)
 void StandardMaterial::renderInMenu()
 {
 	ImGui::ColorEdit3("Color", (float*)&color); // Edit 3 floats representing a color
+}
+
+//Material es la clase base, StandarMat tambe es un tipus de clase base pero amb mes coses. Igual que el profe fa el Wireframe material 
+// nosaltres fem el PhonMaterial. Si posem mes coses a standard despres tambe les hem de posar a Wire.
+// creem el phong per 
+PhongMaterial::PhongMaterial(Shader* shader){
+	if (shader) {
+		this->shader = shader;
+	} 
+	else {
+		this->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/flat.fs");
+	}
 }
 
 WireframeMaterial::WireframeMaterial()

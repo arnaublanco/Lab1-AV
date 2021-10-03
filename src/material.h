@@ -21,18 +21,25 @@ public:
 
 class StandardMaterial : public Material {
 public:
-
 	Vector3 ambientMaterial;
 	Vector3 diffuseMaterial;
 	Vector3 specularMaterial;
 	float alpha;
 
-	StandardMaterial();
+	StandardMaterial(); 
 	~StandardMaterial();
 
 	void setUniforms(Camera* camera, Matrix44 model);
 	void render(Mesh* mesh, Matrix44 model, Camera * camera);
 	void renderInMenu();
+};
+ 
+//afegit per nos
+class PhongMaterial : public StandardMaterial {
+public: 
+	PhongMaterial(Shader* shader);
+
+
 };
 
 class WireframeMaterial : public StandardMaterial {
