@@ -53,7 +53,6 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 	shader = Shader::Get("data/shaders/basic.vs", "data/shaders/flat.fs");
 
 	{
-		PhongMaterial* mat = new PhongMaterial(shader); //ho canviem pel nostre
 		//Light
 		Vector3 posLight = Vector3(60, 60, 0);
 		Vector3 diffuseLight = Vector3(0.6f, 0.6f, 0.6f);
@@ -66,7 +65,7 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		light->name = "Light";
 		node_list.push_back(light);
 
-		//Texture
+		PhongMaterial* mat = new PhongMaterial(shader); //ho canviem pel nostre
 		mat->texture = Texture::Get("data/blueNoise.png");
 
 		SceneNode* node = new SceneNode("Ball");
@@ -75,8 +74,6 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		node->material = mat;
 		//mat->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/normal.fs");
 		node_list.push_back(node);
-
-		
 
 	}
 
@@ -106,7 +103,7 @@ void Application::render(void)
 	//lo del type no va, no entre mai al primer if, si dona algun problema es que s'ha de posar shader enable abans
 	for (size_t i = 0; i < node_list.size(); i++) {
 		if (node_list[i]->name == "Light") {
-			Light* light = (Light*)node_list[i];
+			Light* light = (Light*)node_list[i]; // Downcast of Light
 			light->setUniforms(shader);
 		}
 		else {

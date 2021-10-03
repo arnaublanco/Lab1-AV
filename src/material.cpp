@@ -61,6 +61,12 @@ void StandardMaterial::renderInMenu()
 // nosaltres fem el PhonMaterial. Si posem mes coses a standard despres tambe les hem de posar a Wire.
 // creem el phong per 
 PhongMaterial::PhongMaterial(Shader* shader){
+
+	ambientMaterial = Vector3(0.6f, 0.6f, 0.6f);
+	diffuseMaterial = Vector3(0.6f, 0.6f, 0.6f);
+	specularMaterial = Vector3(0.6f, 0.6f, 0.6f);
+	alpha = 10;
+
 	if (shader) {
 		this->shader = shader;
 	} 
