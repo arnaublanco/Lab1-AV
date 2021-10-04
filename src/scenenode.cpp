@@ -83,3 +83,24 @@ void SceneNode::renderInMenu()
 		ImGui::TreePop();
 	}
 }
+
+SkyBoxNode::SkyBoxNode() {
+	this->name = std::string("SkyBox" + std::to_string(lastNameId++));
+}
+
+SkyBoxNode::SkyBoxNode(const char* name) {
+	this->name = name;
+}
+
+SkyBoxNode::~SkyBoxNode() {
+
+}
+
+void SkyBoxNode::render(Camera* camera)
+{
+	if (material) {
+		glDisable(GL_DEPTH_TEST);
+		material->render(mesh, model, camera);
+		glEnable(GL_DEPTH_TEST);
+	}
+}

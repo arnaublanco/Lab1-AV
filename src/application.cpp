@@ -63,6 +63,9 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		
 		Light* light = new Light(posLight, diffuseLight, specularLight, ambientLight);
 		light->name = "Light";
+		StandardMaterial* lightMaterial = new StandardMaterial();
+		lightMaterial->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/flat.fs");
+		light->material = lightMaterial;
 		node_list.push_back(light);
 
 		Vector3 ambientMaterial = Vector3(0.6f, 0.6f, 0.6f);
@@ -70,19 +73,28 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		Vector3 specularMaterial = Vector3(0.6f, 0.6f, 0.6f);
 		float alpha = 10;
 
-		PhongMaterial* mat = new PhongMaterial(ambientMaterial, diffuseMaterial, specularMaterial, alpha, shader); //ho canviem pel nostre
+		PhongMaterial* mat = new PhongMaterial(ambientMaterial, diffuseMaterial, specularMaterial, alpha); //ho canviem pel nostre
 		mat->texture = Texture::Get("data/blueNoise.png");
-
+		
 		SceneNode* node = new SceneNode("Ball");
 		node->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
 		//node->model.scale(5, 5, 5);
 		node->material = mat;
-		//mat->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/normal.fs");
+		mat->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/flat.fs");
 		node_list.push_back(node);
-
+		
+		SkyBoxNode* background = new SkyBoxNode("Background");
+		StandardMaterial* mat2 = new StandardMaterial();
+		
 		Texture* cubemap = new Texture();
-		cubemap->cubemapFromImages("data/environments/city");
+		cubemap->cubemapFromImages("data/environments/snow");
 
+		mat2->texture = cubemap;
+		mat2->shader = Shader::Get("data/shaders/basicSkybox.vs", "data/shaders/skybox.fs");
+		background->material = mat2;
+		background->mesh = Mesh::Get("data/meshes/box.ASE.mbin");
+		node_list.push_back(background);
+		
 	}
 
 

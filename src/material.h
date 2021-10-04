@@ -21,10 +21,6 @@ public:
 
 class StandardMaterial : public Material {
 public:
-	Vector3 ambientMaterial;
-	Vector3 diffuseMaterial;
-	Vector3 specularMaterial;
-	float alpha;
 
 	StandardMaterial(); 
 	~StandardMaterial();
@@ -37,7 +33,13 @@ public:
 //afegit per nos
 class PhongMaterial : public StandardMaterial {
 public: 
-	PhongMaterial(Vector3 ambientMaterial, Vector3 diffuseMaterial, Vector3 specularMaterial, float alpha, Shader* shader);
+	Vector3 ambientMaterial;
+	Vector3 diffuseMaterial;
+	Vector3 specularMaterial;
+	float alpha;
+
+	PhongMaterial(Vector3 ambientMaterial, Vector3 diffuseMaterial, Vector3 specularMaterial, float alpha);
+	void setUniforms(Camera* camera, Matrix44 model);
 };
 
 class WireframeMaterial : public StandardMaterial {
@@ -48,5 +50,14 @@ public:
 
 	void render(Mesh* mesh, Matrix44 model, Camera * camera);
 };
+/*
+class SkyBox : public StandardMaterial {
+	SkyBox();
+	~SkyBox();
 
+	void setUniforms(Camera* camera, Matrix44 model);
+	void render(Mesh* mesh, Matrix44 model, Camera* camera);
+	void renderInMenu();
+};
+*/
 #endif

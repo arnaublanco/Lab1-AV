@@ -31,6 +31,14 @@ public:
 	virtual void renderInMenu();
 };
 
+class SkyBoxNode : public SceneNode {
+public:
+	SkyBoxNode();
+	SkyBoxNode(const char* name);
+	~SkyBoxNode();
+	void render(Camera* camera);
+};
+
 class Light : public SceneNode {
 public:
 	Vector3 position;
