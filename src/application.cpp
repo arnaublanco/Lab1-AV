@@ -64,7 +64,7 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		Light* light = new Light(posLight, diffuseLight, specularLight, ambientLight);
 		light->name = "Light";
 		StandardMaterial* lightMaterial = new StandardMaterial();
-		lightMaterial->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/flat.fs");
+		lightMaterial->shader = Shader::Get("data/shaders/basicLight.vs", "data/shaders/normalLight.fs");
 		light->material = lightMaterial;
 		node_list.push_back(light);
 
