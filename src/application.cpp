@@ -61,7 +61,7 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		
 		//Review
 		
-		Light* light = new Light(posLight,diffuseLight, specularLight, ambientLight);
+		Light* light = new Light(posLight, diffuseLight, specularLight, ambientLight);
 		light->name = "Light";
 		node_list.push_back(light);
 
@@ -79,6 +79,9 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		node->material = mat;
 		//mat->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/normal.fs");
 		node_list.push_back(node);
+
+		Texture* cubemap = new Texture();
+		cubemap->cubemapFromImages("data/environments/city");
 
 	}
 
