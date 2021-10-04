@@ -60,12 +60,12 @@ void StandardMaterial::renderInMenu()
 //Material es la clase base, StandarMat tambe es un tipus de clase base pero amb mes coses. Igual que el profe fa el Wireframe material 
 // nosaltres fem el PhonMaterial. Si posem mes coses a standard despres tambe les hem de posar a Wire.
 // creem el phong per 
-PhongMaterial::PhongMaterial(Shader* shader){
+PhongMaterial::PhongMaterial(Vector3 ambientMaterial, Vector3 diffuseMaterial, Vector3 specularMaterial, float alpha, Shader* shader){
 
-	ambientMaterial = Vector3(0.6f, 0.6f, 0.6f);
-	diffuseMaterial = Vector3(0.6f, 0.6f, 0.6f);
-	specularMaterial = Vector3(0.6f, 0.6f, 0.6f);
-	alpha = 10;
+	this->ambientMaterial = ambientMaterial;
+	this->diffuseMaterial = diffuseMaterial;
+	this->specularMaterial = specularMaterial;
+	this->alpha = alpha;
 
 	if (shader) {
 		this->shader = shader;

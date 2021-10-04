@@ -61,11 +61,16 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		
 		//Review
 		
-		Light* light = new Light(posLight, diffuseLight, specularLight, ambientLight);
+		Light* light = new Light(posLight,diffuseLight, specularLight, ambientLight);
 		light->name = "Light";
 		node_list.push_back(light);
 
-		PhongMaterial* mat = new PhongMaterial(shader); //ho canviem pel nostre
+		Vector3 ambientMaterial = Vector3(0.6f, 0.6f, 0.6f);
+		Vector3 diffuseMaterial = Vector3(0.6f, 0.6f, 0.6f);
+		Vector3 specularMaterial = Vector3(0.6f, 0.6f, 0.6f);
+		float alpha = 10;
+
+		PhongMaterial* mat = new PhongMaterial(ambientMaterial, diffuseMaterial, specularMaterial, alpha, shader); //ho canviem pel nostre
 		mat->texture = Texture::Get("data/blueNoise.png");
 
 		SceneNode* node = new SceneNode("Ball");

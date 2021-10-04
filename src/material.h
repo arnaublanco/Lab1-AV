@@ -37,9 +37,7 @@ public:
 //afegit per nos
 class PhongMaterial : public StandardMaterial {
 public: 
-	PhongMaterial(Shader* shader);
-
-
+	PhongMaterial(Vector3 ambientMaterial, Vector3 diffuseMaterial, Vector3 specularMaterial, float alpha, Shader* shader);
 };
 
 class WireframeMaterial : public StandardMaterial {
