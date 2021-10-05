@@ -15,7 +15,7 @@ Light::Light(Vector3 position, Vector3 diffuseLight, Vector3 specularLight, Vect
 	
 }
 
-//Review
+
 void Light::setUniforms(){
 	material->shader->setUniform("light_pos", model*Vector4(position,1.0).xyz);
 	material->shader->setUniform("ambientLight", ambientLight);

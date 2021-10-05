@@ -83,43 +83,29 @@ void PhongMaterial::setUniforms(Camera* camera, Matrix44 model) {
 		shader->setUniform("u_texture", texture);
 }
 /*
-SkyBox::SkyBox() {
+MirrorMaterial::MirrorMaterial() {
+	shader = Shader::Get("data/shaders/basic.vs", "data/shaders/mirror.fs");
+}
+
+MirrorMaterial::~MirrorMaterial() {
 
 }
 
-SkyBox::~SkyBox() {
-
-}
-
-void SkyBox::setUniforms(Camera* camera, Matrix44 model) {
-	shader->setUniform("u_viewprojection", camera->viewprojection_matrix);
+void MirrorMaterial::setUniforms(Camera* camera, Matrix44 model) {
+	//upload node uniforms
+	
 	shader->setUniform("u_camera_position", camera->eye);
-	shader->setUniform("u_model", model);
+
+	//v_world_position
+	//	v_normal
+	//	u_texture
+
+	//shader->setUniform("u_skybox", Application::instance->cube->material->texture);
+
+	if (texture)
+		shader->setUniform("u_texture", texture);
 }
-
-void SkyBox::render(Mesh* mesh, Matrix44 model, Camera* camera){
-	if (mesh && shader)
-	{
-		//enable shader
-		shader->enable();
-
-		//upload uniforms
-		setUniforms(camera, model);
-
-		//do the draw call
-		mesh->render(GL_TRIANGLES);
-
-		//disable shader
-		shader->disable();
-	}
-}
-
-void SkyBox :: renderInMenu() {
-
-}
-
 */
-
 WireframeMaterial::WireframeMaterial()
 {
 	color = vec4(1.f, 1.f, 1.f, 1.f);

@@ -73,6 +73,7 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		//Review
 
 		Shader* shader = Shader::Get("data/shaders/basic.vs", "data/shaders/flat.fs");
+		Shader* shaderMirror = Shader::Get("data/shaders/basic.vs", "data/shaders/mirror.fs");
 
 		Light* light = new Light(posLight, diffuseLight, specularLight, ambientLight);
 		light->name = "Light";
@@ -81,19 +82,29 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		light->material = lightMaterial;
 		node_list.push_back(light);
 
+
 		Vector3 ambientMaterial = Vector3(0.6f, 0.6f, 0.6f);
 		Vector3 diffuseMaterial = Vector3(0.6f, 0.6f, 0.6f);
 		Vector3 specularMaterial = Vector3(0.6f, 0.6f, 0.6f);
 		float alpha = 10;
 
-		PhongMaterial* mat = new PhongMaterial(ambientMaterial, diffuseMaterial, specularMaterial, alpha); //ho canviem pel nostre
-		mat->texture = Texture::Get("data/blueNoise.png");
+		//PhongMaterial* mat = new PhongMaterial(ambientMaterial, diffuseMaterial, specularMaterial, alpha); //ho canviem pel nostre
+		//mat->texture = Texture::Get("data/blueNoise.png");
+
+		PhongMaterial* matMirror = new PhongMaterial(ambientMaterial, diffuseMaterial, specularMaterial, alpha);
+		matMirror->texture = cubemap;
+
 
 		SceneNode* node = new SceneNode("Ball");
 		node->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
 		//node->model.scale(5, 5, 5);
-		node->material = mat;
-		mat->shader = shader;
+		//node->material = mat;
+		//mat->shader = shader;
+		node->material = matMirror;
+		matMirror->shader = shaderMirror;
+
+		//node->material = mirrorMaterial;
+		//mirrorMaterial->shader = shaderMirror;
 		node_list.push_back(node);
 		
 	}

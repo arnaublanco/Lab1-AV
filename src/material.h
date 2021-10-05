@@ -50,6 +50,17 @@ public:
 
 	void render(Mesh* mesh, Matrix44 model, Camera * camera);
 };
+
+/*
+class MirrorMaterial : public StandardMaterial {
+public: 
+	MirrorMaterial();
+	~MirrorMaterial();
+
+	void setUniforms(Camera* camera, Matrix44 model);
+
+};
+*/
 /*
 class SkyBox : public StandardMaterial {
 	SkyBox();
