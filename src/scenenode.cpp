@@ -85,6 +85,11 @@ void SceneNode::renderInMenu()
 
 		ImGui::TreePop();
 	}
+
+	/*if (ImGui::TreeNode("Test")) {
+		ImGui::ColorEdit3("Test", (float*)&color);
+		ImGui::TreePop();
+	}*/
 }
 
 SkyBoxNode::SkyBoxNode() {

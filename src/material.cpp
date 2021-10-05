@@ -50,6 +50,7 @@ void StandardMaterial::render(Mesh* mesh, Matrix44 model, Camera* camera)
 void StandardMaterial::renderInMenu()
 {
 	ImGui::ColorEdit3("Color", (float*)&color); // Edit 3 floats representing a color
+	//ImGui::
 }
 
 //Material es la clase base, StandarMat tambe es un tipus de clase base pero amb mes coses. Igual que el profe fa el Wireframe material 
@@ -82,30 +83,7 @@ void PhongMaterial::setUniforms(Camera* camera, Matrix44 model) {
 	if (texture)
 		shader->setUniform("u_texture", texture);
 }
-/*
-MirrorMaterial::MirrorMaterial() {
-	shader = Shader::Get("data/shaders/basic.vs", "data/shaders/mirror.fs");
-}
 
-MirrorMaterial::~MirrorMaterial() {
-
-}
-
-void MirrorMaterial::setUniforms(Camera* camera, Matrix44 model) {
-	//upload node uniforms
-	
-	shader->setUniform("u_camera_position", camera->eye);
-
-	//v_world_position
-	//	v_normal
-	//	u_texture
-
-	//shader->setUniform("u_skybox", Application::instance->cube->material->texture);
-
-	if (texture)
-		shader->setUniform("u_texture", texture);
-}
-*/
 WireframeMaterial::WireframeMaterial()
 {
 	color = vec4(1.f, 1.f, 1.f, 1.f);
