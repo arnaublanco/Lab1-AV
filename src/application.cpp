@@ -21,7 +21,7 @@ using namespace std;
 bool render_wireframe = false;
 Camera* Application::camera = nullptr;
 Application* Application::instance = NULL;
-Shader* shader;
+//Shader* shader;
 
 
 Application::Application(int window_width, int window_height, SDL_Window* window)
@@ -50,21 +50,34 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 	camera->lookAt(Vector3(5.f, 5.f, 5.f), Vector3(0.f, 0.0f, 0.f), Vector3(0.f, 1.f, 0.f));
 	camera->setPerspective(45.f,window_width/(float)window_height,0.1f,10000.f); //set the projection, we want to be perspective
 
-	shader = Shader::Get("data/shaders/basic.vs", "data/shaders/flat.fs");
-
 	{
+
+		SkyBoxNode* background = new SkyBoxNode("Background");
+		StandardMaterial* mat2 = new StandardMaterial();
+
+		Texture* cubemap = new Texture();
+		cubemap->cubemapFromImages("data/environments/snow");
+
+		mat2->texture = cubemap;
+		mat2->shader = Shader::Get("data/shaders/basicSkybox.vs", "data/shaders/skybox.fs");
+		background->material = mat2;
+		background->mesh = Mesh::Get("data/meshes/box.ASE.mbin");
+		node_list.push_back(background);
+
 		//Light
 		Vector3 posLight = Vector3(60, 60, 0);
 		Vector3 diffuseLight = Vector3(0.6f, 0.6f, 0.6f);
 		Vector3 specularLight = Vector3(0.6f, 0.6f, 0.6f);
 		Vector3 ambientLight = Vector3(0.6f, 0.6f, 0.6f);
-		
+
 		//Review
-		
+
+		Shader* shader = Shader::Get("data/shaders/basic.vs", "data/shaders/flat.fs");
+
 		Light* light = new Light(posLight, diffuseLight, specularLight, ambientLight);
 		light->name = "Light";
 		StandardMaterial* lightMaterial = new StandardMaterial();
-		lightMaterial->shader = Shader::Get("data/shaders/basicLight.vs", "data/shaders/normalLight.fs");
+		lightMaterial->shader = shader;
 		light->material = lightMaterial;
 		node_list.push_back(light);
 
@@ -75,30 +88,16 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 
 		PhongMaterial* mat = new PhongMaterial(ambientMaterial, diffuseMaterial, specularMaterial, alpha); //ho canviem pel nostre
 		mat->texture = Texture::Get("data/blueNoise.png");
-		
+
 		SceneNode* node = new SceneNode("Ball");
 		node->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
 		//node->model.scale(5, 5, 5);
 		node->material = mat;
-		mat->shader = Shader::Get("data/shaders/basic.vs", "data/shaders/flat.fs");
+		mat->shader = shader;
 		node_list.push_back(node);
-		
-		SkyBoxNode* background = new SkyBoxNode("Background");
-		StandardMaterial* mat2 = new StandardMaterial();
-		
-		Texture* cubemap = new Texture();
-		cubemap->cubemapFromImages("data/environments/snow");
-
-		mat2->texture = cubemap;
-		mat2->shader = Shader::Get("data/shaders/basicSkybox.vs", "data/shaders/skybox.fs");
-		background->material = mat2;
-		background->mesh = Mesh::Get("data/meshes/box.ASE.mbin");
-		node_list.push_back(background);
 		
 	}
 
-
-	
 	//hide the cursor
 	SDL_ShowCursor(!mouse_locked); //hide or show the mouse
 }
@@ -119,19 +118,25 @@ void Application::render(void)
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_CULL_FACE);
 
-	shader->enable();
 	//lo del type no va, no entre mai al primer if, si dona algun problema es que s'ha de posar shader enable abans
 	for (size_t i = 0; i < node_list.size(); i++) {
 		if (node_list[i]->name == "Light") {
 			Light* light = (Light*)node_list[i]; // Downcast of Light
-			light->setUniforms(shader);
+			light->material->shader->enable();
+			light->setUniforms();
+			light->material->shader->disable();
 		}
 		else {
+			node_list[i]->material->shader->enable();
 			node_list[i]->render(camera);
+			node_list[i]->material->shader->disable();
 		}
 
-		if(render_wireframe)
+		if (render_wireframe) {
+			node_list[i]->material->shader->enable();
 			node_list[i]->renderWireframe(camera);
+			node_list[i]->material->shader->disable();
+		}
 	}
 
 	//Draw the floor grid

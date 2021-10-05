@@ -48,7 +48,7 @@ public:
 
 	Light(Vector3 position, Vector3 diffuseLight, Vector3 specularLight, Vector3 ambientLight);
 
-	void setUniforms(Shader* shader);
+	void setUniforms();
 
 };
 

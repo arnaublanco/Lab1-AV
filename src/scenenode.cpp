@@ -16,11 +16,11 @@ Light::Light(Vector3 position, Vector3 diffuseLight, Vector3 specularLight, Vect
 }
 
 //Review
-void Light::setUniforms(Shader* shader){
-	shader->setUniform("light_pos", model*Vector4(position,1.0).xyz);
-	shader->setUniform("ambientLight", ambientLight);
-	shader->setUniform("diffuseLight", diffuseLight);
-	shader->setUniform("specularLight", specularLight);
+void Light::setUniforms(){
+	material->shader->setUniform("light_pos", model*Vector4(position,1.0).xyz);
+	material->shader->setUniform("ambientLight", ambientLight);
+	material->shader->setUniform("diffuseLight", diffuseLight);
+	material->shader->setUniform("specularLight", specularLight);
 }
 
 
@@ -42,8 +42,11 @@ SceneNode::~SceneNode()
 
 void SceneNode::render(Camera* camera)
 {
-	if (material)
+	if (material) {
+		glEnable(GL_DEPTH_TEST);
 		material->render(mesh, model, camera);
+		glDisable(GL_DEPTH_TEST);
+	}
 }
 
 void SceneNode::renderWireframe(Camera* camera)
