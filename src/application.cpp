@@ -71,7 +71,6 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		Vector3 ambientLight = Vector3(0.6f, 0.6f, 0.6f);
 
 		Shader* shader = Shader::Get("data/shaders/basic.vs", "data/shaders/flat.fs");
-		Shader* phong = Shader::Get("data/shaders/basicPhong.vs", "data/shaders/phong.fs");
 		Shader* shaderMirror = Shader::Get("data/shaders/basic.vs", "data/shaders/mirror.fs");
 
 		Light* light = new Light(posLight, diffuseLight, specularLight, ambientLight);
@@ -107,10 +106,11 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		node_list.push_back(node2);
 
 		PhongMaterial* mat4 = new PhongMaterial(ambientMaterial, diffuseMaterial, specularMaterial, alpha); //ho canviem pel nostre
+		mat4->shader = shader;
+		mat4->texture = NULL;
 
 		SceneNode* node3 = new SceneNode("Ball 3");
 		node3->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
-		mat4->shader = phong;
 		node3->material = mat4;
 		node3->model.setTranslation(-5, 0, 0);
 
