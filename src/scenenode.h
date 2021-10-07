@@ -37,6 +37,7 @@ public:
 	SkyBoxNode(const char* name);
 	~SkyBoxNode();
 	void render(Camera* camera);
+	void renderInMenu();
 };
 
 class Light : public SceneNode {

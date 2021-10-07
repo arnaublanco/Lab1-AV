@@ -5,6 +5,8 @@
 
 unsigned int SceneNode::lastNameId = 0;
 unsigned int mesh_selected = 0;
+unsigned int background_selected = 0;
+const char* backgrounds[4] = { "data/environments/snow", "data/environments/city", "data/environments/dragonvale" };
 
 
 Light::Light(Vector3 position, Vector3 diffuseLight, Vector3 specularLight, Vector3 ambientLight) {
@@ -101,7 +103,7 @@ SkyBoxNode::SkyBoxNode(const char* name) {
 }
 
 SkyBoxNode::~SkyBoxNode() {
-
+	
 }
 
 void SkyBoxNode::render(Camera* camera)
@@ -110,5 +112,17 @@ void SkyBoxNode::render(Camera* camera)
 		glDisable(GL_DEPTH_TEST);
 		material->render(mesh, model, camera);
 		glEnable(GL_DEPTH_TEST);
+	}
+}
+
+void SkyBoxNode::renderInMenu() {
+	if (ImGui::TreeNode("Options")) {
+
+		bool changed = false;
+		changed |= ImGui::Combo("Background", (int*)&background_selected, "SNOW\0CITY\0DRAGON VALE");
+
+		material->texture->cubemapFromImages(backgrounds[background_selected]);
+
+		ImGui::TreePop();
 	}
 }

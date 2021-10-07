@@ -50,7 +50,6 @@ void StandardMaterial::render(Mesh* mesh, Matrix44 model, Camera* camera)
 void StandardMaterial::renderInMenu()
 {
 	ImGui::ColorEdit3("Color", (float*)&color); // Edit 3 floats representing a color
-	//ImGui::
 }
 
 //Material es la clase base, StandarMat tambe es un tipus de clase base pero amb mes coses. Igual que el profe fa el Wireframe material 
