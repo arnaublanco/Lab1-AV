@@ -105,8 +105,8 @@ void SceneNode::renderInMenu()
 		PhongMaterial* tmp = (PhongMaterial*)material;
 		if (!tmp->isMirror) {
 			bool changed = false;
-			changed |= ImGui::Combo("Texture", (int*)&texture_selected, "METALNESS\0ROUGHNESS");
-
+			changed |= ImGui::Combo("Texture", (int*)&texture_selected, "TEXTURE1\0TEXTURE2");
+			
 			if (changed)
 				material->texture = Texture::Get(textures[texture_selected]);
 		}

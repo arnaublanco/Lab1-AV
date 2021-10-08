@@ -182,7 +182,13 @@ void Application::update(double seconds_elapsed)
 	if (Input::isKeyPressed(SDL_SCANCODE_D) || Input::isKeyPressed(SDL_SCANCODE_RIGHT)) camera->move(Vector3(-1.0f, 0.0f, 0.0f) * speed);
 	if (Input::isKeyPressed(SDL_SCANCODE_SPACE)) camera->moveGlobal(Vector3(0.0f, -1.0f, 0.0f) * speed);
 	if (Input::isKeyPressed(SDL_SCANCODE_LCTRL)) camera->moveGlobal(Vector3(0.0f,  1.0f, 0.0f) * speed);
-
+	
+	for (size_t i = 0; i < node_list.size(); i++) {
+		if (node_list[i]->name == "Background") {
+			node_list[i]->model.setTranslation(camera->eye.x, camera->eye.y, camera->eye.z);
+		}
+	}
+	
 	//to navigate with the mouse fixed in the middle
 	if (mouse_locked)
 		Input::centerMouse();
