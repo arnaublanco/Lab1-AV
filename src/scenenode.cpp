@@ -6,7 +6,7 @@
 unsigned int SceneNode::lastNameId = 0;
 unsigned int mesh_selected = 0;
 unsigned int background_selected = 0;
-const char* backgrounds[4] = { "data/environments/snow", "data/environments/city", "data/environments/dragonvale" };
+const char* backgrounds[3] = { "data/environments/snow", "data/environments/city", "data/environments/dragonvale" };
 
 
 Light::Light(Vector3 position, Vector3 diffuseLight, Vector3 specularLight, Vector3 ambientLight) {
@@ -121,8 +121,9 @@ void SkyBoxNode::renderInMenu() {
 		bool changed = false;
 		changed |= ImGui::Combo("Background", (int*)&background_selected, "SNOW\0CITY\0DRAGON VALE");
 
-		material->texture->cubemapFromImages(backgrounds[background_selected]);
-
+		if (changed){
+			material->texture->cubemapFromImages(backgrounds[background_selected]);
+		}
 		ImGui::TreePop();
 	}
 }
