@@ -53,14 +53,14 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 	{
 
 		SkyBoxNode* background = new SkyBoxNode("Background");
-		StandardMaterial* mat2 = new StandardMaterial();
+		StandardMaterial* matBG = new StandardMaterial();
 
 		Texture* cubemap = new Texture();
 		cubemap->cubemapFromImages("data/environments/snow");
 
-		mat2->texture = cubemap;
-		mat2->shader = Shader::Get("data/shaders/basicSkybox.vs", "data/shaders/skybox.fs");
-		background->material = mat2;
+		matBG->texture = cubemap;
+		matBG->shader = Shader::Get("data/shaders/basicSkybox.vs", "data/shaders/skybox.fs");
+		background->material = matBG;
 		background->mesh = Mesh::Get("data/meshes/box.ASE.mbin");
 		node_list.push_back(background);
 
@@ -71,6 +71,7 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		Vector3 ambientLight = Vector3(0.6f, 0.6f, 0.6f);
 
 		Shader* shader = Shader::Get("data/shaders/basic.vs", "data/shaders/flat.fs");
+		Shader* phong = Shader::Get("data/shaders/basic.vs", "data/shaders/phong.fs");
 		Shader* shaderMirror = Shader::Get("data/shaders/basic.vs", "data/shaders/mirror.fs");
 
 		Light* light = new Light(posLight, diffuseLight, specularLight, ambientLight);
@@ -85,36 +86,36 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		Vector3 specularMaterial = Vector3(0.6f, 0.6f, 0.6f);
 		float alpha = 10;
 
-		PhongMaterial* mat = new PhongMaterial(ambientMaterial, diffuseMaterial, specularMaterial, alpha); //ho canviem pel nostre
+		PhongMaterial* matMirror = new PhongMaterial(ambientMaterial, diffuseMaterial, specularMaterial, alpha); //ho canviem pel nostre
 
-		SceneNode* node = new SceneNode("Ball 1");
-		node->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
-		node->material = mat;
-		mat->shader = shader;
+		SceneNode* mirror = new SceneNode("Ball 1");
+		mirror->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
+		mirror->material = matMirror;
+		matMirror->shader = shaderMirror;
 		
-		node_list.push_back(node);
+		node_list.push_back(mirror);
 
-		PhongMaterial* mat3 = new PhongMaterial(ambientMaterial, diffuseMaterial, specularMaterial, alpha); //ho canviem pel nostre
-		mat3->texture = Texture::Get("data/blueNoise.png");
+		PhongMaterial* matTexture = new PhongMaterial(ambientMaterial, diffuseMaterial, specularMaterial, alpha); //ho canviem pel nostre
+		matTexture->texture = Texture::Get("data/blueNoise.png");
 
-		SceneNode* node2 = new SceneNode("Ball 2");
-		node2->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
-		mat3->shader = shaderMirror;
-		node2->material = mat3;
-		node2->model.setTranslation(5, 0, 0);
+		SceneNode* nodeTexture = new SceneNode("Ball 2");
+		nodeTexture->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
+		matTexture->shader = shader;
+		nodeTexture->material = matTexture;
+		nodeTexture->model.setTranslation(5, 0, 0);
 
-		node_list.push_back(node2);
+		node_list.push_back(nodeTexture);
 
-		PhongMaterial* mat4 = new PhongMaterial(ambientMaterial, diffuseMaterial, specularMaterial, alpha); //ho canviem pel nostre
-		mat4->shader = shader;
-		mat4->texture = NULL;
+		PhongMaterial* matPhong = new PhongMaterial(ambientMaterial, diffuseMaterial, specularMaterial, alpha); //ho canviem pel nostre
+		matPhong->shader = shader;
+		matPhong->texture = NULL;
 
-		SceneNode* node3 = new SceneNode("Ball 3");
-		node3->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
-		node3->material = mat4;
-		node3->model.setTranslation(-5, 0, 0);
+		SceneNode* nodePhong = new SceneNode("Ball 3");
+		nodePhong->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
+		nodePhong->material = matPhong;
+		nodePhong->model.setTranslation(-5, 0, 0);
 
-		node_list.push_back(node3);
+		node_list.push_back(nodePhong);
 		
 	}
 

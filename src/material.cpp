@@ -25,7 +25,7 @@ void StandardMaterial::setUniforms(Camera* camera, Matrix44 model)
 	shader->setUniform("u_color", color);
 	shader->setUniform("u_exposure", Application::instance->scene_exposure);
 
-	if (texture != NULL)
+	if (texture)
 		shader->setUniform("u_texture", texture);
 }
 
@@ -79,8 +79,9 @@ void PhongMaterial::setUniforms(Camera* camera, Matrix44 model) {
 	shader->setVector3("specularMaterial", specularMaterial);
 	shader->setFloat("alpha", alpha);
 
-	if (texture)
+	if (texture) {
 		shader->setUniform("u_texture", texture);
+	}
 }
 
 WireframeMaterial::WireframeMaterial()
