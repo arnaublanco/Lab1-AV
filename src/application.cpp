@@ -87,22 +87,24 @@ Application::Application(int window_width, int window_height, SDL_Window* window
 		float alpha = 10;
 
 		PhongMaterial* matMirror = new PhongMaterial(ambientMaterial, diffuseMaterial, specularMaterial, alpha); //ho canviem pel nostre
+		matMirror->isMirror = 1;
 
-		SceneNode* mirror = new SceneNode("Ball 1");
+		SceneNode* mirror = new SceneNode("Mirror ball");
 		mirror->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
 		mirror->material = matMirror;
 		matMirror->shader = shaderMirror;
+		mirror->model.setTranslation(-2, 0, 0);
 		
 		node_list.push_back(mirror);
 
 		PhongMaterial* matTexture = new PhongMaterial(ambientMaterial, diffuseMaterial, specularMaterial, alpha); //ho canviem pel nostre
-		matTexture->texture = Texture::Get("data/blueNoise.png");
+		matTexture->texture = Texture::Get("data/models/ball/metalness.png");
 
-		SceneNode* nodeTexture = new SceneNode("Ball 2");
+		SceneNode* nodeTexture = new SceneNode("Textured ball");
 		nodeTexture->mesh = Mesh::Get("data/meshes/sphere.obj.mbin");
 		matTexture->shader = shader;
 		nodeTexture->material = matTexture;
-		nodeTexture->model.setTranslation(5, 0, 0);
+		nodeTexture->model.setTranslation(2, 0, 0);
 
 		node_list.push_back(nodeTexture);
 		

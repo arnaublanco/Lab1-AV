@@ -8,7 +8,7 @@ unsigned int mesh_selected = 0;
 unsigned int background_selected = 0;
 const char* backgrounds[3] = { "data/environments/snow", "data/environments/city", "data/environments/dragonvale" };
 const char* meshes[2] = { "data/meshes/sphere.obj.mbin" };
-const char* textures[2] = { "data/blueNoise.png" ,"data/brdfLUT.png" };
+const char* textures[2] = { "data/models/ball/metalness.png", "data/models/ball/roughness.png" };
 unsigned int texture_selected = 0;
 
 
@@ -41,17 +41,14 @@ void Light::renderInMenu() {
 		ImGui::TreePop();
 	}
 
-	/*if (ImGui::TreeNode("Parameters")) {
-		float AL[3], DL[3], SL[3];
+	if (ImGui::TreeNode("Parameters")) {
 
-		ImGui::DragFloat3("Ambient", AL, 0.1f);
-		ImGui::DragFloat3("Diffuse", DL, 0.1f);
-		ImGui::DragFloat3("Specular", SL, 0.1f);
-		
-		ambientLight.x = AL[1], ambientLight.y = AL[2], ambientLight.z = AL[3];
-		diffuseLight.x = DL[1], diffuseLight.y = DL[2], diffuseLight.z = DL[3];
-		specularLight.x = SL[1], specularLight.y = SL[2], specularLight.z = SL[3];
-	}*/
+		ImGui::DragFloat3("Ambient", (float*)&ambientLight, 0.01f, 0.0f, 1.0f);
+		ImGui::DragFloat3("Diffuse", (float*)&diffuseLight, 0.01f, 0.0f, 1.0f);
+		ImGui::DragFloat3("Specular", (float*)&specularLight, 0.01f, 0.0f, 1.0f);
+
+		ImGui::TreePop();
+	}
 	
 }
 
@@ -105,15 +102,17 @@ void SceneNode::renderInMenu()
 	//Material
 	if (material && ImGui::TreeNode("Material"))
 	{
+		PhongMaterial* tmp = (PhongMaterial*)material;
+		if (!tmp->isMirror) {
+			bool changed = false;
+			changed |= ImGui::Combo("Texture", (int*)&texture_selected, "METALNESS\0ROUGHNESS");
 
-		bool changed = false;
-		changed |= ImGui::Combo("Texture", (int*)&texture_selected, "BLUE NOISE\0brdfLUT");
+			if (changed)
+				material->texture = Texture::Get(textures[texture_selected]);
+		}
 
-		if (changed)
-			material->texture = Texture::Get(textures[texture_selected]);
+		material->renderInMenu();
 
-		if (!material->texture)
-			material->renderInMenu();
 		ImGui::TreePop();
 	}
 

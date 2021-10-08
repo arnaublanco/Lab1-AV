@@ -37,9 +37,11 @@ public:
 	Vector3 diffuseMaterial;
 	Vector3 specularMaterial;
 	float alpha;
+	int isMirror = 0;
 
 	PhongMaterial(Vector3 ambientMaterial, Vector3 diffuseMaterial, Vector3 specularMaterial, float alpha);
 	void setUniforms(Camera* camera, Matrix44 model);
+	void renderInMenu();
 };
 
 class WireframeMaterial : public StandardMaterial {
@@ -50,25 +52,4 @@ public:
 
 	void render(Mesh* mesh, Matrix44 model, Camera * camera);
 };
-
-/*
-class MirrorMaterial : public StandardMaterial {
-public: 
-	MirrorMaterial();
-	~MirrorMaterial();
-
-	void setUniforms(Camera* camera, Matrix44 model);
-
-};
-*/
-/*
-class SkyBox : public StandardMaterial {
-	SkyBox();
-	~SkyBox();
-
-	void setUniforms(Camera* camera, Matrix44 model);
-	void render(Mesh* mesh, Matrix44 model, Camera* camera);
-	void renderInMenu();
-};
-*/
 #endif

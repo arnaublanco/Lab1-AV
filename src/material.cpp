@@ -52,6 +52,13 @@ void StandardMaterial::renderInMenu()
 	ImGui::ColorEdit3("Color", (float*)&color); // Edit 3 floats representing a color
 }
 
+void PhongMaterial::renderInMenu() {
+	ImGui::DragFloat3("Ambient", (float*)&ambientMaterial, 0.01f, 0.0f, 1.0f);
+	ImGui::DragFloat3("Diffuse", (float*)&diffuseMaterial, 0.01f, 0.0f, 1.0f);
+	ImGui::DragFloat3("Specular", (float*)&specularMaterial, 0.01f, 0.0f, 1.0f);
+	ImGui::DragFloat("Alpha", &alpha, 0.1f, 1.0f, 50.0f);
+}
+
 //Material es la clase base, StandarMat tambe es un tipus de clase base pero amb mes coses. Igual que el profe fa el Wireframe material 
 // nosaltres fem el PhonMaterial. Si posem mes coses a standard despres tambe les hem de posar a Wire.
 // creem el phong per 
