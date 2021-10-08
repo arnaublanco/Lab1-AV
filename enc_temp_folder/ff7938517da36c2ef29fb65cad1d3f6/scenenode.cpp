@@ -41,7 +41,7 @@ void Light::renderInMenu() {
 		ImGui::TreePop();
 	}
 
-	/*if (ImGui::TreeNode("Parameters")) {
+	if (ImGui::TreeNode("Parameters")) {
 		float AL[3], DL[3], SL[3];
 
 		ImGui::DragFloat3("Ambient", AL, 0.1f);
@@ -51,7 +51,7 @@ void Light::renderInMenu() {
 		ambientLight.x = AL[1], ambientLight.y = AL[2], ambientLight.z = AL[3];
 		diffuseLight.x = DL[1], diffuseLight.y = DL[2], diffuseLight.z = DL[3];
 		specularLight.x = SL[1], specularLight.y = SL[2], specularLight.z = SL[3];
-	}*/
+	}
 	
 }
 
