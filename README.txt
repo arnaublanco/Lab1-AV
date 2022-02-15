@@ -1,10 +1,3 @@
-COMPILING IN LINUX
-****************************
+Lab 1 of the "Advanced Graphics" course in the Bachelor's Audiovisual Systems Engineering.
 
-Remember to install the libraries:
-
-sudo apt-get install libsdl2-dev freeglut3 freeglut3-dev
-
-and then just use the makefile:
-
-make
+The framework in C++ was already provided by the professors.
